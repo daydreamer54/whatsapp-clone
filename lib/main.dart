@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import './pages/chat.dart';
-
 
 void main() {
   runApp(MaterialApp(
@@ -9,26 +7,28 @@ void main() {
   ));
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                text: "CHATS",
-              ),
-              Tab(
-                text: "STATUS",
-              ),
-              Tab(
-                text: "CALLS",
-              ),
-            ],
-          ),
+          bottom: tabBarim(),
           backgroundColor: Colors.green[800],
           title: Text("Whatsapp"),
           actions: <Widget>[
@@ -64,8 +64,57 @@ class MyHomePage extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        body: Chats(),
+        body: TabBarView(
+          controller: _tabController,
+          children: <Widget>[
+            ListView.builder(
+              itemCount: 7,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  child: Card(
+                    child: ListTile(
+                      leading: Image.asset("assets/images/belletmen.png"),
+                      title: Text("Kadir BEKAR",style: TextStyle(fontSize: 18.0,fontFamily: 'Gayathiri'),),
+                      subtitle: Text("Hey man, how you doing",style: TextStyle(fontFamily: 'Rock',fontSize: 17.0),),
+                      trailing: Text("Yesterday",style: TextStyle(fontFamily: 'Gayathiri'),),
+                    ),
+                  ),
+                  padding: EdgeInsets.all(3.0),
+                );
+              },
+            ),
+            Container(
+              alignment: Alignment.center,
+              color: Colors.pink,
+              child: Text("Page 2"),
+            ),
+            Container(
+              alignment: Alignment.center,
+              color: Colors.purple,
+              child: Text("Page 3"),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  TabBar tabBarim() {
+    return TabBar(
+      labelColor: Colors.white,
+      indicatorColor: Colors.white, //Tabbar sayfalar arasında geçişlerde arka plan rengini değiştirir.
+      controller: _tabController,
+      tabs: <Widget>[
+        Tab(
+          child: Text("CHATS"),
+        ),
+        Tab(
+          child: Text("STATUS"),
+        ),
+        Tab(
+          child: Text("CALLS"),
+        ),
+      ],
     );
   }
 }
