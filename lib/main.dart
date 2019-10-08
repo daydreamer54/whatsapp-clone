@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import './pages/contacts.dart';
+import 'models/person.dart';
+import 'utils/strings.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -22,8 +25,10 @@ class _MyHomePageState extends State<MyHomePage>
     _tabController = TabController(length: 3, vsync: this);
   }
 
+  static List<Person> allPeople;
   @override
   Widget build(BuildContext context) {
+    allPeople = createSourceOfTheList();
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -58,7 +63,10 @@ class _MyHomePageState extends State<MyHomePage>
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.green,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Contacts()));
+          },
           child: Icon(
             Icons.chat,
             color: Colors.white,
@@ -67,31 +75,16 @@ class _MyHomePageState extends State<MyHomePage>
         body: TabBarView(
           controller: _tabController,
           children: <Widget>[
-            ListView.builder(
-              itemCount: 7,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  child: Card(
-                    child: ListTile(
-                      leading: Image.asset("assets/images/belletmen.png"),
-                      title: Text("Kadir BEKAR",style: TextStyle(fontSize: 18.0,fontFamily: 'Gayathiri'),),
-                      subtitle: Text("Hey man, how you doing",style: TextStyle(fontFamily: 'Rock',fontSize: 17.0),),
-                      trailing: Text("Yesterday",style: TextStyle(fontFamily: 'Gayathiri'),),
-                    ),
-                  ),
-                  padding: EdgeInsets.all(3.0),
-                );
-              },
-            ),
+            buildList(),
             Container(
               alignment: Alignment.center,
               color: Colors.pink,
-              child: Text("Page 2"),
+              child: Text("STATUS"),
             ),
             Container(
               alignment: Alignment.center,
               color: Colors.purple,
-              child: Text("Page 3"),
+              child: Text("CALLS"),
             ),
           ],
         ),
@@ -102,7 +95,8 @@ class _MyHomePageState extends State<MyHomePage>
   TabBar tabBarim() {
     return TabBar(
       labelColor: Colors.white,
-      indicatorColor: Colors.white, //Tabbar sayfalar arasında geçişlerde arka plan rengini değiştirir.
+      indicatorColor: Colors
+          .white, //Tabbar sayfalar arasında geçişlerde arka plan rengini değiştirir.
       controller: _tabController,
       tabs: <Widget>[
         Tab(
@@ -115,6 +109,73 @@ class _MyHomePageState extends State<MyHomePage>
           child: Text("CALLS"),
         ),
       ],
+    );
+  }
+
+  List<Person> createSourceOfTheList() {
+    List<Person> people = [];
+
+    for (int i = 0; i < 7; i++) {
+      String smallPicture =
+          Strings.PERSON_NAME[i].toLowerCase() + "${i + 1}.png";
+
+      Person add = Person(
+          Strings.PERSON_NAME[i], Strings.PERSON_MESSAGE[i], smallPicture);
+      people.add(add);
+    }
+    return people;
+  }
+
+  buildList() {
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        return oneLineList(context, index);
+      },
+      itemCount: allPeople.length,
+    );
+  }
+
+  oneLineList(BuildContext context, int index) {
+    Person currentPerson = allPeople[index];
+    return Padding(
+      padding: EdgeInsets.all(4.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+          border: Border(
+            bottom: BorderSide(width: 1.0,),
+            top: BorderSide(width: 1.0,),
+            right: BorderSide(width: 1.0,),
+            left: BorderSide(width: 1.0,),
+          ),
+        ),
+        child: Card(
+          margin: EdgeInsets.all(3.0),
+          elevation: 4.0,
+          child: ListTile(
+            leading: Image.asset(
+              "assets/images/" + currentPerson.smallPicture,
+              width: 55.0,
+              height: 55.0,
+            ),
+            title: Text(currentPerson.personName,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0),),
+            subtitle: Padding(
+              padding: EdgeInsets.all(3.0),
+              child: Text(
+                currentPerson.personMessage,
+                style: TextStyle(
+                    fontFamily: 'Rock',
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            trailing: Text(
+              "Yesterday",
+              style: TextStyle(fontFamily: 'Rock', fontSize: 17.0),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
