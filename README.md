@@ -2,5 +2,8 @@
 i try to design whatsapp by using flutter
 
 <br>
+# new text fonts <br><br>
 
-![whatsap](https://user-images.githubusercontent.com/34074484/66353089-e5ef1680-e969-11e9-9230-5dfd49b80e24.PNG)
+
+
+![r1](https://user-images.githubusercontent.com/34074484/66383956-8d019b80-e9c6-11e9-96b4-d7155a88bad2.PNG)
