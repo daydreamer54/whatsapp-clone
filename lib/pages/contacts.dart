@@ -17,7 +17,7 @@ class Contacts extends StatelessWidget {
               style: TextStyle(fontSize: 17.0),
             ),
             Text(
-              "15 contacts",
+              "7 contacts",
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 13.0),
             ),

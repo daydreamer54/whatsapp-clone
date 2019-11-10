@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   static List<Person> allPeople;
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) {
     allPeople = createSourceOfTheList();
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           bottom: tabBarim(),
@@ -45,18 +45,24 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             SizedBox(
               child: Padding(
-                padding: EdgeInsets.only(left: 1.0),
+                padding: EdgeInsets.only(
+                  left: 1.0,
+                ),
               ),
             ),
             IconButton(
               onPressed: () {
                 debugPrint("You have clicked on more_vert button");
               },
-              icon: Icon(Icons.more_vert),
+              icon: Icon(
+                Icons.more_vert,
+              ),
             ),
             SizedBox(
               child: Padding(
-                padding: EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(
+                  right: 5.0,
+                ),
               ),
             ),
           ],
@@ -75,6 +81,12 @@ class _MyHomePageState extends State<MyHomePage>
         body: TabBarView(
           controller: _tabController,
           children: <Widget>[
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.camera_alt,
+              ),
+            ),
             buildList(),
             Container(
               alignment: Alignment.center,
@@ -100,13 +112,38 @@ class _MyHomePageState extends State<MyHomePage>
       controller: _tabController,
       tabs: <Widget>[
         Tab(
-          child: Text("CHATS"),
+          child: Icon(
+            Icons.camera_alt,
+            size: 30.0,
+            color: Colors.white,
+          ),
         ),
         Tab(
-          child: Text("STATUS"),
+          child: Text(
+            "CHATS",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+          ),
         ),
         Tab(
-          child: Text("CALLS"),
+          child: Text(
+            "STATUS",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+          ),
+        ),
+        Tab(
+          child: Text(
+            "CALLS",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+          ),
         ),
       ],
     );
@@ -143,10 +180,18 @@ class _MyHomePageState extends State<MyHomePage>
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15.0)),
           border: Border(
-            bottom: BorderSide(width: 1.0,),
-            top: BorderSide(width: 1.0,),
-            right: BorderSide(width: 1.0,),
-            left: BorderSide(width: 1.0,),
+            bottom: BorderSide(
+              width: 1.0,
+            ),
+            top: BorderSide(
+              width: 1.0,
+            ),
+            right: BorderSide(
+              width: 1.0,
+            ),
+            left: BorderSide(
+              width: 1.0,
+            ),
           ),
         ),
         child: Card(
@@ -158,7 +203,10 @@ class _MyHomePageState extends State<MyHomePage>
               width: 55.0,
               height: 55.0,
             ),
-            title: Text(currentPerson.personName,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.0),),
+            title: Text(
+              currentPerson.personName,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
             subtitle: Padding(
               padding: EdgeInsets.all(3.0),
               child: Text(
